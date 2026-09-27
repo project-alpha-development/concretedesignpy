@@ -1,0 +1,7 @@
+{
+  "name": "Wight & MacGregor 7th Ex 4-1M -- singly reinforced (printed 148)",
+  "kind": "textbook",
+  "b": 250, "h": 565, "tension": [[65, 1530]], "compression": [],
+  "fc": 20, "fy": 420,
+  "expected": {"a_mm": [151, 0.01], "c_mm": [178, 0.01], "eps_t": [0.00543, 0.01], "Mn_kNm": [273, 0.01], "phi": [0.90, 0.001]}
+}

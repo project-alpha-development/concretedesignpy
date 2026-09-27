@@ -1,0 +1,8 @@
+{
+  "name": "Wight & MacGregor 7th Ex 7-2 -- torsion, solid 14x24 in. (printed 358-362), SI converted",
+  "kind": "textbook",
+  "b_in": 14, "h_in": 24, "d_in": 21.5, "cover_in": 1.5, "dbs_in": 0.5,
+  "fc_ksi": 4, "fy_ksi": 60, "Tu_kipft": 28.0, "Vu_kip": 57.1,
+  "expected": {"phiTth_kNm": [7.959, 0.01], "At_s_mm2_per_mm": [0.5183, 0.01], "Al_mm2": [819.4, 0.01],
+               "Aoh_mm2": [138709, 0.01], "ph_mm": [1574.8, 0.01]}
+}

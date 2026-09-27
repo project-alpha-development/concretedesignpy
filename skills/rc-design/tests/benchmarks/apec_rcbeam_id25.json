@@ -1,0 +1,16 @@
+{
+  "name": "APEC rc-beam smoke beam id=25 (Sample-Design.pptx, output-smrf row)",
+  "source": "~/Desktop/Programs/rc-beam/AGENTS.md 'Smoke tests' -- APEC deck value; Software/12 section 1 re-verified",
+  "kind": "apec_past_beam",
+  "section": {"b": 400, "h": 800, "cover": 40, "dbs": 12},
+  "materials": {"fc": 27.579, "fy": 413.686},
+  "bars": {"top": [4, 25], "bot": [4, 25]},
+  "span": {"L": 5.6176},
+  "expected": {
+    "d_mm":              [735.50, 0.001],
+    "phiMn_pos_kNm":     [506.86, 0.005],
+    "Mpr_pos_kNm":       [698.74, 0.005],
+    "Vpr_kN_centreline": [248.77, 0.005]
+  },
+  "note": "Vpr uses centreline L because the deck row carries no ln -- the skill warns when ln is assumed."
+}

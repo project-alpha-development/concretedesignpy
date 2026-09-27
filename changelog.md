@@ -1,5 +1,20 @@
 # Changelog - concretedesignpy
 
+## Unreleased | September 27, 2026
+
+### Added
+- **`skills/rc-design/` -- Claude Code skill for NSCP 2015 RC beam design.**
+  Standalone scripts (`flexure`, `shear`, `torsion`, `seismic`,
+  `serviceability`, `combine`, `design_beam`) that design or check a beam
+  at I / M / J and write one JSON: flexure with As,min and eps_t, shear,
+  torsion (Al merged into As, At into Av), SMF capacity design (Mpr with
+  A's, Ve on the clear span, Vc = 0 in the hinge) with 418.6 detailing,
+  and deflection / crack control. Follows the Option A basis in
+  `CLAUSES.md` and the rc-beam review findings (vault Software/12).
+  Benchmarks: APEC rc-beam beam id 25 and W&M Ex 4-1M, 4-4, 6-1M, 7-2
+  (`python3 skills/rc-design/tests/run_benchmarks.py`). Install by copying
+  the folder to `~/.claude/skills/rc-design/`.
+
 ## Version 0.10.0 | August 15, 2026
 
 Solver-workbench redesign of the web UI, and a fix for the Railway

@@ -1,0 +1,8 @@
+{
+  "name": "Wight & MacGregor 7th Ex 4-4 -- doubly reinforced (printed 170-171), inch-pound converted",
+  "kind": "textbook",
+  "b_in": 12, "h_in": 20, "tension_in": [[2.5, 4.0], [4.6, 2.0]], "compression_in": [[2.5, 3.0]],
+  "fc_ksi": 4, "fy_ksi": 60,
+  "expected": {"Mn_kipft": [428, 0.01], "c_in": [6.2, 0.01]},
+  "note": "6-No.9 in two layers, dt = 17.5 in and centroid 16.8 in (4 bars + 2 bars). Displaced-concrete term W&M Eq. (4-31)."
+}

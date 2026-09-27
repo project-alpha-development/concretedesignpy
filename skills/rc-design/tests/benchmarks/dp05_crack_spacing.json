@@ -1,0 +1,6 @@
+{
+  "name": "Vault Design Procedures/05 worked value -- Table 24.3.2 at cc = 75 mm, fs = (2/3)(420)",
+  "kind": "vault_worked_value",
+  "cc": 75, "fy": 420,
+  "expected": {"s_max_mm": [192.5, 0.001]}
+}

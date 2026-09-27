@@ -1,0 +1,7 @@
+{
+  "name": "Wight & MacGregor 7th Ex 6-1M -- stirrups (printed 297-300)",
+  "kind": "textbook",
+  "bw": 300, "d": 610, "h": 675, "fc": 25, "fyt": 300, "Vu_over_phi_kN": 373, "Av_13M": 258,
+  "expected": {"Vc_kN": [153, 0.01], "s_mm_13M": [215, 0.01], "Vs_limit_kN": [610, 0.015]},
+  "note": "Book Vs,max 610 kN = (2/3)sqrt(f'c) bw d; the code prints 0.66 (22.5.1.2, p. 442) -> 603.9 kN, 1 % below the book."
+}

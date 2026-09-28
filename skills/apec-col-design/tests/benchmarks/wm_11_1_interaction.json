@@ -1,0 +1,18 @@
+{
+  "kind": "pm_points",
+  "source": "Wight & MacGregor 7th, Example 11-1, printed 532-539 (vault Manuals/, printed = PDF - 1)",
+  "units": "US inputs converted exactly: 1 in = 25.4 mm, 1 ksi = 6.894757 MPa, 1 kip = 4.448222 kN",
+  "section_in": {"b": 16, "h": 16, "layers": [[2.5, 4.0], [13.5, 4.0]]},
+  "fc_ksi": 5, "fy_ksi": 60, "Es_ksi": 29000, "beta1": 0.80,
+  "expected": {
+    "Po_kips": 1534, "phiPn_max_kips": 798, "Pnt_kips": -480,
+    "points": [
+      {"Z": -1, "Pn_kips": 417, "Mn_kipft": 386, "phi": 0.65},
+      {"Z": -2, "Pn_kips": 247, "Mn_kipft": 340, "phi": 0.828},
+      {"eps_t": 0.005, "Pn_kips": 194, "Mn_kipft": 320, "phi": 0.90},
+      {"Z": -4, "Pn_kips": 43.9, "Mn_kipft": 257, "phi": 0.90}
+    ]
+  },
+  "tolerance": {"force": 0.012, "moment": 0.01, "phi": 0.004, "small_P_abs_kips": 1.0},
+  "note": "W&M's phi at Z = -2 uses eps_ty = 0.002 in the transition formula; the script uses fy/Es = 0.00207 (0.8266) -- inside the 0.004 tolerance."
+}

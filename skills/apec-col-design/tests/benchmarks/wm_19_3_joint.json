@@ -1,0 +1,11 @@
+{
+  "kind": "joint",
+  "source": "Wight & MacGregor 7th, Example 19-3, printed 1076-1078",
+  "input_in": {"column_b": 24, "column_h": 24, "beam_b": 24, "beam_h": 24},
+  "fc_ksi": 4, "fy_ksi": 60,
+  "As_in2": {"left_top": 4.36, "right_bot": 2.24},
+  "Vcol_kips": 81.8,
+  "expected": {"Vj_kips": 413, "phiVn_kips": 619, "gamma": 1.7},
+  "tolerance": {"Vj": 0.005, "phiVn": 0.03},
+  "note": "phiVn differs by the SI coefficient: NSCP 1.7 sqrt(f'c MPa) vs ACI in-lb 20 sqrt(psi) = 1.661 sqrt(MPa) (+2.4 %). Vcol is given as W&M computes it (2 DF Sum Mpr / lu); the script's default uses the NIST mid-height free body instead."
+}

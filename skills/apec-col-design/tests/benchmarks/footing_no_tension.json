@@ -1,0 +1,6 @@
+{
+  "kind": "pressure",
+  "source": "rigid-base statics (not vault-cited): q_max = P/A (1 + 6e/B) inside the kern, 2P / (3 L (B/2 - e)) outside; W&M 7th Eq. (15-5) kern, printed 831",
+  "P_kN": 1000, "B_m": 3.0, "L_m": 2.0, "e_m": [0.3, 0.5, 0.8, 1.0],
+  "tolerance": {"rel": 0.003}
+}

@@ -1,5 +1,30 @@
 # Changelog - concretedesignpy
 
+## Unreleased | September 28, 2026
+
+### Added
+- **`skills/apec-col-design/` -- Claude Code skill for NSCP 2015 RC columns,
+  SMF joints and spread footings, with a project runner that compiles beam
+  (via rc-design) + column + joint + footing results into one zip.**
+  Every member is designed for the NSCP 2015 §203.3.1 combinations generated
+  from its unfactored load cases (E = ρEh + Ev with ±Ev paired with ±Eh,
+  Ev = 0.5CaID, optional 100/30 orthogonal per §208.7.1); footings add the
+  §203.4.1 service set and the 0.6D stability rows. Columns: strain-
+  compatibility P-M and P-M-M (neutral axis rotated to the demand moment
+  direction; load-contour and radial D/C; Bresler as a cross-check), NSCP
+  418.7 strong column / weak beam, ℓo, hx, Table 418.7.5.4 confinement,
+  capacity-design Ve from Mpr over the axial range with the beam cap,
+  Vc = 0 in ℓo and the §421.2.4.1 φ = 0.60 rule. Joints: 418.8 on the
+  rectified joint_shear basis. Footings: the vault's `dp_foundation.py`
+  (vendored unchanged) plus a no-tension pressure solver and moment transfer
+  in punching. NSCP folios 2-10/2-11, 2-219, 2-221, 4-115..4-118, 4-140/141,
+  4-143..4-145 were read visually. Benchmarks: W&M 7th Ex 11-1, 11-5, 11-7,
+  19-2, 19-3, vault Concrete/05, NSCP combination factors, footing statics
+  (`python3 skills/apec-col-design/tests/run_benchmarks.py`, 79 checks).
+  The existing `calculators/column_interaction.py` / `column_biaxial.py`
+  were not modified. Install by copying the folder to
+  `~/.claude/skills/apec-col-design/`.
+
 ## Unreleased | September 27, 2026
 
 ### Added

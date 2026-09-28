@@ -1,0 +1,17 @@
+{
+  "kind": "smf_column",
+  "source": "Wight & MacGregor 7th, Example 19-2, printed 1070-1075 (ACI 318-14 = NSCP 2015 Ch. 4 provisions)",
+  "input_in": {"b": 24, "h": 24, "cover": 1.5, "hoop_db": 0.625, "edge": 2.5, "bar_db": 1.0, "nx": 4, "ny": 4, "lu": 120},
+  "fc_ksi": 4, "fy_ksi": 60, "fyt_ksi": 60, "Es_ksi": 29000,
+  "cases_kips_kipft": {"D": {"P": 560, "Mx_top": -4, "Mx_bot": -4}, "L": {"P": 154, "Mx_top": -1, "Mx_bot": -1}, "E": {"P": 5, "Mx_top": 195, "Mx_bot": 210, "Vy": 40}},
+  "beams": {"Mnb_kipft": 664, "Mpr_b_kipft": 817, "DF": 0.5},
+  "expected": {
+    "combo_P_kips": [784, 918.4, 749, 754, 744, 509, 499],
+    "lo_in": 24, "hx_in": 6.333, "nl": 12, "kn": 1.2,
+    "Ash_s_a": 0.129, "Ash_s_b": 0.126, "Ash_s_c": 0.175,
+    "Mpr_kipft": 835, "Ve_col_kips": 167, "Ve_kips": 81.7,
+    "Av_s_phi075_Vc0": 0.0845, "Vc_outside_kips": 93.5, "d_in": 21.5
+  },
+  "tolerance": {"exact": 0.005, "ash": 0.01, "chart": 0.02, "vc_si": 0.03},
+  "note": "W&M's 6-in hoop pitch is 152.4 mm, over the SI 150 mm cap of so, so the SI run uses 150 mm. W&M sets Vc = 0 in lo by choice ('prudent', printed 1075) -- run with vc_zero_in_lo = always. Fig. 19-27 phiMn values (490/520/430 kip-ft) are chart reads that match neither phi Mn(Pn = Pu) nor phiMn(phiPn = Pu); they are NOT pinned."
+}

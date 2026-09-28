@@ -1,0 +1,10 @@
+{
+  "kind": "biaxial_check",
+  "source": "Wight & MacGregor 7th, Examples 11-6/11-7, printed 574-576 (chart-read phiPnx/phiPny)",
+  "section_in": {"b": 16, "h": 16, "bars_xy_in": [[-5.6, 5.6], [0, 5.6], [5.6, 5.6], [5.6, 0], [5.6, -5.6], [0, -5.6], [-5.6, -5.6], [-5.6, 0]], "bar_area_in2": 0.79},
+  "fc_ksi": 4, "fy_ksi": 60, "Es_ksi": 29000,
+  "demand": {"Pu_kips": 250, "Mux_kipft": 55, "Muy_kipft": 110},
+  "expected": {"adequate": true, "bresler_phiPn_kips": 292, "phiPn_e0330_kips": 348, "phiPn_e0165_kips": 553, "phiPno_kips": 798},
+  "tolerance": {"bresler": 0.03, "chart": 0.05, "phiPno": 0.005},
+  "note": "348 / 553 are read off W&M Figs. A-9a/b and interpolated in gamma; the exact strain-compatibility values differ by up to ~4 %. The pinned result is the exact P-M-M check passing and the Bresler resultant."
+}

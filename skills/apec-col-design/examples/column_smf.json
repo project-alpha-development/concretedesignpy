@@ -1,0 +1,113 @@
+{
+  "id": "C1-GF",
+  "frame": "SMF",
+  "section": {
+    "shape": "rect",
+    "b": 500,
+    "h": 500,
+    "cover": 40
+  },
+  "materials": {
+    "fc": 27.579,
+    "fy": 413.686,
+    "fyt": 413.686
+  },
+  "geometry": {
+    "lu": 3200,
+    "second_order": true
+  },
+  "loads": {
+    "f1": 0.5,
+    "rho": 1.0,
+    "Ca": 0.523,
+    "I": 1.0,
+    "orthogonal": true
+  },
+  "cases": {
+    "D": {
+      "P": 820,
+      "Mx_top": -14,
+      "Mx_bot": 8,
+      "My_top": 10,
+      "My_bot": -6,
+      "Vx": 5,
+      "Vy": 7
+    },
+    "L": {
+      "P": 260,
+      "Mx_top": -6,
+      "Mx_bot": 3,
+      "My_top": 4,
+      "My_bot": -2,
+      "Vx": 2,
+      "Vy": 3
+    },
+    "EX": {
+      "P": 95,
+      "Mx_top": 12,
+      "Mx_bot": -15,
+      "My_top": 175,
+      "My_bot": -215,
+      "Vx": 118,
+      "Vy": 8
+    },
+    "EY": {
+      "P": 140,
+      "Mx_top": 185,
+      "Mx_bot": -230,
+      "My_top": 10,
+      "My_bot": -12,
+      "Vx": 7,
+      "Vy": 128
+    }
+  },
+  "joints": {
+    "top": {
+      "Mx": {
+        "Mnb": [
+          420,
+          420
+        ],
+        "Mpr_b": [
+          530,
+          530
+        ],
+        "DF": 0.5
+      },
+      "My": {
+        "Mnb": [
+          390,
+          390
+        ],
+        "Mpr_b": [
+          490,
+          490
+        ],
+        "DF": 0.5
+      },
+      "column_other": {
+        "P": [
+          700,
+          1300
+        ]
+      }
+    },
+    "bottom": {
+      "foundation": true
+    }
+  },
+  "_check_mode_example": {
+    "bars": {
+      "db": 25,
+      "nx": 4,
+      "ny": 4
+    },
+    "hoops": {
+      "db": 12,
+      "legs_x": 4,
+      "legs_y": 4,
+      "s_lo": 100,
+      "s_mid": 150
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "J-C1-2F-X",
+  "direction": "X",
+  "fc": 27.579,
+  "fy": 413.686,
+  "lam": 1.0,
+  "column": {
+    "b": 500,
+    "h": 500
+  },
+  "beam_left": {
+    "b": 300,
+    "h": 500,
+    "top": [
+      4,
+      20
+    ],
+    "bot": [
+      3,
+      20
+    ]
+  },
+  "beam_right": {
+    "b": 300,
+    "h": 500,
+    "top": [
+      4,
+      20
+    ],
+    "bot": [
+      3,
+      20
+    ]
+  },
+  "transverse_left_b": 300,
+  "transverse_right_b": 300,
+  "H_above": 3600,
+  "H_below": 3600,
+  "column_hoops": {
+    "s_lo": 100
+  }
+}

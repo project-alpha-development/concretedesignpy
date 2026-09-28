@@ -1,0 +1,81 @@
+{
+  "project": "Example two-storey SMRF - interior column line C1",
+  "_note": "ILLUSTRATIVE numbers, not a real building. Replace the load cases with MIDAS / ETABS member forces per UNFACTORED load case. Column cases are at the top and bottom of the clear height; beam cases at stations I (start), M (midspan), J (end); beam M > 0 is sagging.",
+  "loads": {"f1": 0.5, "rho": 1.0, "Ca": 0.523, "I": 1.0, "orthogonal": true},
+  "materials": {
+    "column": {"fc": 27.579, "fy": 413.686, "fyt": 275.79},
+    "beam": {"fc": 27.579, "fy": 413.686, "fyt": 275.79},
+    "footing": {"fc": 20.684, "fy": 413.686}
+  },
+  "beams": [
+    {"id": "2G1", "frame": "SMF", "section": {"b": 400, "h": 600, "cover": 40, "dbs": 10},
+     "span": {"L": 6.0}, "columns": {"hc_i": 500, "hc_j": 500, "c1": 500, "c2": 500},
+     "gravity": {"wD": 25.0, "wL": 10.0}, "service": {"support": "both_continuous", "wD": 25.0, "wL": 10.0},
+     "bars": {"db_top": 20, "db_bot": 20, "n_legs": 2},
+     "cases": {
+       "D":  {"I": {"M": -95, "V": 88}, "M": {"M": 60, "V": 2}, "J": {"M": -100, "V": -90}},
+       "L":  {"I": {"M": -35, "V": 32}, "M": {"M": 22, "V": 1}, "J": {"M": -37, "V": -33}},
+       "EX": {"I": {"M": -180, "V": 58}, "M": {"M": -5, "V": 58}, "J": {"M": 170, "V": 58}},
+       "EY": {"I": {"M": -12, "V": 4}, "M": {"M": 0, "V": 4}, "J": {"M": 11, "V": 4}}
+     }},
+    {"id": "2G2", "frame": "SMF", "section": {"b": 400, "h": 600, "cover": 40, "dbs": 10},
+     "span": {"L": 6.0}, "columns": {"hc_i": 500, "hc_j": 500, "c1": 500, "c2": 500},
+     "gravity": {"wD": 25.0, "wL": 10.0}, "service": {"support": "both_continuous", "wD": 25.0, "wL": 10.0},
+     "bars": {"db_top": 20, "db_bot": 20, "n_legs": 2},
+     "cases": {
+       "D":  {"I": {"M": -100, "V": 90}, "M": {"M": 60, "V": -2}, "J": {"M": -95, "V": -88}},
+       "L":  {"I": {"M": -37, "V": 33}, "M": {"M": 22, "V": -1}, "J": {"M": -35, "V": -32}},
+       "EX": {"I": {"M": -172, "V": 57}, "M": {"M": 0, "V": 57}, "J": {"M": 168, "V": 57}},
+       "EY": {"I": {"M": -11, "V": 4}, "M": {"M": 0, "V": 4}, "J": {"M": 12, "V": 4}}
+     }},
+    {"id": "2G3", "frame": "SMF", "section": {"b": 400, "h": 600, "cover": 40, "dbs": 10},
+     "span": {"L": 5.5}, "columns": {"hc_i": 500, "hc_j": 500, "c1": 500, "c2": 500},
+     "gravity": {"wD": 22.0, "wL": 9.0}, "service": {"support": "both_continuous", "wD": 22.0, "wL": 9.0},
+     "bars": {"db_top": 20, "db_bot": 20, "n_legs": 2},
+     "cases": {
+       "D":  {"I": {"M": -72, "V": 70}, "M": {"M": 45, "V": 1}, "J": {"M": -76, "V": -72}},
+       "L":  {"I": {"M": -28, "V": 26}, "M": {"M": 17, "V": 0}, "J": {"M": -29, "V": -27}},
+       "EX": {"I": {"M": -10, "V": 4}, "M": {"M": 0, "V": 4}, "J": {"M": 10, "V": 4}},
+       "EY": {"I": {"M": -190, "V": 68}, "M": {"M": -4, "V": 68}, "J": {"M": 182, "V": 68}}
+     }},
+    {"id": "2G4", "frame": "SMF", "section": {"b": 400, "h": 600, "cover": 40, "dbs": 10},
+     "span": {"L": 5.5}, "columns": {"hc_i": 500, "hc_j": 500, "c1": 500, "c2": 500},
+     "gravity": {"wD": 22.0, "wL": 9.0}, "service": {"support": "both_continuous", "wD": 22.0, "wL": 9.0},
+     "bars": {"db_top": 20, "db_bot": 20, "n_legs": 2},
+     "cases": {
+       "D":  {"I": {"M": -76, "V": 72}, "M": {"M": 45, "V": -1}, "J": {"M": -72, "V": -70}},
+       "L":  {"I": {"M": -29, "V": 27}, "M": {"M": 17, "V": 0}, "J": {"M": -28, "V": -26}},
+       "EX": {"I": {"M": -10, "V": 4}, "M": {"M": 0, "V": 4}, "J": {"M": 10, "V": 4}},
+       "EY": {"I": {"M": -185, "V": 67}, "M": {"M": 0, "V": 67}, "J": {"M": 180, "V": 67}}
+     }}
+  ],
+  "columns": [
+    {"id": "C1-GF", "frame": "SMF", "section": {"shape": "rect", "b": 500, "h": 500, "cover": 40},
+     "geometry": {"lu": 3000, "second_order": true},
+     "cases": {
+       "D":  {"P": 820, "Mx_top": -14, "Mx_bot": 8, "My_top": 10, "My_bot": -6, "Vx": 5, "Vy": 7},
+       "L":  {"P": 260, "Mx_top": -6, "Mx_bot": 3, "My_top": 4, "My_bot": -2, "Vx": 2, "Vy": 3},
+       "EX": {"P": 95, "Mx_top": 12, "Mx_bot": -15, "My_top": 175, "My_bot": -215, "Vx": 130, "Vy": 8},
+       "EY": {"P": 140, "Mx_top": 185, "Mx_bot": -230, "My_top": 10, "My_bot": -12, "Vx": 7, "Vy": 138}
+     },
+     "joints": {
+       "top": {"Mx": {"beam_ends": [["2G3", "J"], ["2G4", "I"]], "DF": 0.5},
+               "My": {"beam_ends": [["2G1", "J"], ["2G2", "I"]], "DF": 0.5},
+               "column_other": {"P": [300, 700]}},
+       "bottom": {"foundation": true}
+     }}
+  ],
+  "joints": [
+    {"id": "J-C1-2F-X", "column": "C1-GF", "direction": "X",
+     "beam_left": {"beam": "2G1", "end": "J"}, "beam_right": {"beam": "2G2", "end": "I"},
+     "transverse_left_b": 400, "transverse_right_b": 400, "H_above": 3600, "H_below": 3600},
+    {"id": "J-C1-2F-Y", "column": "C1-GF", "direction": "Y",
+     "beam_left": {"beam": "2G3", "end": "J"}, "beam_right": {"beam": "2G4", "end": "I"},
+     "transverse_left_b": 400, "transverse_right_b": 400, "H_above": 3600, "H_below": 3600}
+  ],
+  "footings": [
+    {"id": "F-C1", "column": "C1-GF",
+     "soil": {"q_allow": 150, "gamma_soil": 18, "Df": 1.5, "mu": 0.35, "FS_overturning": 1.5, "FS_sliding": 1.5},
+     "footing": {"ratio": 1.0}}
+  ]
+}

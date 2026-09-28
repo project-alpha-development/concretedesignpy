@@ -1,0 +1,23 @@
+dp_foundation.py -- vendored UNCHANGED from the Structural Mind vault
+
+source   ~/Desktop/Programs/structural-mind/Structural Mind/vault/Design Procedures (MIDAS + Python)/dp_foundation.py
+modified 2026-08-25 13:18 (file mtime); structural-mind HEAD at vendoring 0d77212 (2026-09-27)
+sha256   c286f18bdf325b29e5649269a4666756e86e8115ab3fa174b6304a7730af66bf
+vendored 2026-09-28 for apec-col-design (footing.py)
+
+Self-test: python3 dp_foundation.py --selftest  ->  ALL SELF-TESTS PASSED (86 distinct guards).
+
+Companion vault notes (the technical basis of every function):
+  Design Procedures (MIDAS + Python)/01 - Foundation Design Route Map
+  Design Procedures (MIDAS + Python)/02 - Stability - Sliding, Overturning & Uplift
+  Design Procedures (MIDAS + Python)/03 - Bearing Pressure & Settlement
+  Design Procedures (MIDAS + Python)/04 - Shear & Flexure Design of Spread Footings
+  Design Procedures (MIDAS + Python)/05 - Crack Control & Serviceability
+
+Standing flags carried by the engine (see its --selftest banner): FS for sliding / overturning /
+uplift is (not vault-cited); no settlement verdict is issued; its NSCP constants are
+OCR-transcribed (2026-08-25) -- apec-col-design re-read folios 2-11, 4-144, 4-145 visually on
+2026-09-28; Table 304-1 rows 3-5 are 150 dpi reads (provisional).
+
+To refresh: copy the vault file over this one, re-run its --selftest and
+tests/run_benchmarks.py, and update the sha256 above.

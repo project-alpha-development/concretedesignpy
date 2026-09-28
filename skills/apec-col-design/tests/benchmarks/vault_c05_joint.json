@@ -1,0 +1,8 @@
+{
+  "kind": "joint_vault",
+  "source": "vault Concrete/05 - Beam-Column Joint Check (SMRF), worked example section 5",
+  "input": {"fc": 28, "fy": 420, "column": {"b": 600, "h": 600}, "beam": {"b": 400, "h": 600, "top": [4, 25], "bot": [4, 25]}, "H": 3500},
+  "expected": {"T_kN": 1031, "Vj_kN": 1775, "phiVn_gamma17_kN": 2753, "category_without_override": "other", "phiVn_gamma10_kN": 1619},
+  "tolerance": {"rel": 0.01},
+  "finding": "The note takes gamma = 1.7 for 400 mm beams on a 600 mm column. NSCP 418.8.4.2 (4-118, read 2026-09-28) counts a face as confined only when the beam width >= 3/4 of the effective joint width = 450 mm, so gamma = 1.0 and phiVn = 1619 kN < Vj -- the worked joint FAILS. Flag for the vault."
+}

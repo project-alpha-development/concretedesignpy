@@ -1,0 +1,9 @@
+{
+  "kind": "pmm_state",
+  "source": "Wight & MacGregor 7th, Example 11-5 + Tables 11-2/11-3, printed 568-572",
+  "section_in": {"b": 16, "h": 16, "bars_xy_in": [[-5.6, 5.6], [0, 5.6], [5.6, 5.6], [5.6, 0], [5.6, -5.6], [0, -5.6], [-5.6, -5.6], [-5.6, 0]], "bar_area_in2": 0.79},
+  "fc_ksi": 4, "fy_ksi": 60, "Es_ksi": 29000,
+  "neutral_axis": {"angle_from_x_deg": 30, "through_y_in": -2.0, "compression_side": "upper-left"},
+  "expected": {"c_incl_in": 12.66, "Pn_kips": 485, "Mnx_kipin": 2370, "Mny_kipin": -1150, "eps_t": -0.00140, "phi": 0.65},
+  "tolerance": {"rel": 0.01}
+}

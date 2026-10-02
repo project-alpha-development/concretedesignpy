@@ -83,7 +83,28 @@ def guards():
     g["demand"]["I"]["Mu_neg"] = 5000.0            # impossible demand in design mode
     r2 = D.design_one(g)
     return [("zero bars in check mode -> FAIL", r1["verdict"] == "FAIL"),
-            ("impossible Mu in design mode -> FAIL", r2["verdict"] == "FAIL")]
+            ("impossible Mu in design mode -> FAIL", r2["verdict"] == "FAIL")] + bw_guards()
+
+
+def bw_guards():
+    """NSCP 418.6.2.1(b), folio 4-113: bw >= the SMALLER of 0.3h and 250 mm."""
+    import copy
+    import design_beam as D
+
+    def smf_bw(b, h):
+        t = copy.deepcopy(D.TEMPLATE)
+        t["section"].update({"b": b, "h": h, "dbs": 10})
+        t["demand"] = {s: {"Mu_neg": 40, "Mu_pos": 20, "Vu": 30, "Tu": 0, "Nu": 0} for s in ("I", "M", "J")}
+        t["gravity"].update({"wD": 8.0, "wL": 3.0})
+        t["service"].update({"wD": 8.0, "wL": 3.0})
+        t["bars"] = {"db_top": 16, "db_bot": 16, "n_legs": 2}
+        hit = [c["status"] for c in D.design_one(t)["checks"] if c["id"] == "smf_bw"]
+        return hit[0] if len(hit) == 1 else "MISSING"
+
+    return [("SMF 200 x 500 smf_bw (limit 0.3h = 150) -> OK", smf_bw(200, 500) == "OK"),
+            ("SMF 100 x 500 smf_bw (limit 0.3h = 150) -> FAIL", smf_bw(100, 500) == "FAIL"),
+            ("SMF 250 x 1000 smf_bw (limit 250) -> OK", smf_bw(250, 1000) == "OK"),
+            ("SMF 240 x 1000 smf_bw (limit 250) -> FAIL", smf_bw(240, 1000) == "FAIL")]
 
 
 def main():

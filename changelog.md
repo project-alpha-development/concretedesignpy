@@ -1,5 +1,22 @@
 # Changelog - concretedesignpy
 
+## Unreleased | October 2, 2026
+
+### Fixed
+- **`skills/rc-design/` -- SMF beam width check `smf_bw` used the larger of
+  0.3h and 250 mm; NSCP 2015 requires the smaller.** NSCP 2015 §418.6.2.1(b)
+  (printed 4-113, read visually 2026-10-02) says "at least the smaller of
+  0.3h and 250 mm", as does ACI 318-19 §18.6.2.1(b) ("lesser of 0.3h and
+  10 in."). The `max` came from ACI 318-25M p. 327, which prints "larger of"
+  (the 2026 errata restates it) -- an edition change that is not applied,
+  because NSCP 2015 governs (Option A). A 200 x 500 SMF beam (limit 150 mm)
+  was reported FAIL and is now OK. `scripts/seismic.py` (check, limit text,
+  docstring, note on the check), `references/nscp_clauses.md` (register row
+  and a new edition-position row), and four guards in
+  `tests/run_benchmarks.py` (200 x 500 OK, 100 x 500 FAIL, 250 x 1000 OK,
+  240 x 1000 FAIL). No other check changed. The installed copy in
+  `~/.claude/skills/rc-design/` already carries the same three files.
+
 ## Unreleased | September 28, 2026
 
 ### Added

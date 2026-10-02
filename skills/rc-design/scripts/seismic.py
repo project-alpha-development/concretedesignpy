@@ -3,9 +3,12 @@ seismic.py -- SMF beam: Mpr, Ve, NSCP 418.6 detailing.
 
 Basis (ACI 318-25M printed page | NSCP 2015 twin folio -- vault Internal Learning/01)
 ------------------------------------------------------------------------------------
-* geometry: ln >= 4d; bw >= max(0.3h, 250); projection <= min(c2, 0.75 c1)
-                                      18.6.2.1, p. 327 | 418.6.2, 4-113
-  (318-25M prints 0.7 c1; the 14 May 2026 errata changes it to 0.75)
+* geometry: ln >= 4d; bw >= min(0.3h, 250); projection <= min(c2, 0.75 c1)
+                                      18.6.2.1, p. 327 | 418.6.2.1, 4-113
+  (bw: NSCP 2015 418.6.2.1(b) "at least the smaller of 0.3h and 250 mm" governs
+   (folio 4-113 read 2026-10-02) = 318-14 / 318-19 "lesser of 0.3h and 10 in.";
+   318-25M p. 327 and its 2026 errata print "larger of" -- edition change, NOT applied.
+   318-25M prints 0.7 c1; the 14 May 2026 errata changes it to 0.75)
 * >= 2 continuous bars top & bottom; As >= As,min (9.6.1.2, no 4/3 exemption);
   rho <= 0.025 (Gr 420) / 0.02 (Gr 550)  18.6.3.1, p. 328 | 418.6.3.1, 4-113
 * Mn+ >= 0.5 Mn- at each joint face; Mn+/- >= 0.25 max joint-face Mn everywhere
@@ -95,8 +98,10 @@ def detailing_checks(geo, mat, span, stations, caps, d_by_station, col=None, lam
     d_min = min(d_by_station.values())
     add("smf_ln_4d", "18.6.2.1(a) | NSCP 418.6.2", "327 | 4-113",
         span["ln"] * 1000 >= 4 * d_min, round(span["ln"] * 1000), f">= 4d = {4 * d_min:.0f} mm")
-    add("smf_bw", "18.6.2.1(b) | NSCP 418.6.2", "327 | 4-113",
-        b >= max(0.3 * h, 250.0), b, f">= max(0.3h, 250) = {max(0.3 * h, 250):.0f} mm")
+    bw_min = min(0.3 * h, 250.0)
+    add("smf_bw", "18.6.2.1(b) | NSCP 418.6.2.1(b)", "327 | 4-113",
+        b >= bw_min, b, f">= min(0.3h, 250) = {bw_min:.0f} mm",
+        "NSCP 2015 (= 318-14/-19) 'smaller of' governs; 318-25M p. 327 prints 'larger of'")
     if col and col.get("c1") and col.get("c2"):
         proj = max(0.0, (b - col["c2"]) / 2.0)
         lim = min(col["c2"], 0.75 * col["c1"])

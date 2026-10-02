@@ -30,6 +30,7 @@ Vault root: `~/Desktop/Programs/structural-mind/Structural Mind/vault/`
 | fr | 0.62λ√f′c | 318-25M §19.2.3.1 (p. 395) prints 0.062; the 14 May 2026 errata amends that equation — confirm on the page |
 | As,min fy cap | 550 MPa | §9.6.1.2 prints "80,000 psi" in the SI edition; errata → 550 MPa |
 | SMF projection | 0.75 c1 | §18.6.2.1(c) prints 0.7; errata → 0.75 |
+| SMF beam width | bw ≥ **smaller** of 0.3h and 250 mm | NSCP 418.6.2.1(b), 4-113 (page read 2026-10-02) = 318-14 / 318-19 "lesser of 0.3h and 10 in.". 318-25M §18.6.2.1(b) (p. 327, and the errata restatement) prints "**larger** of" — an edition change, **not** applied: a 200 × 500 beam (limit 150 mm) is OK |
 
 ## Clause register
 
@@ -57,7 +58,7 @@ Vault root: `~/Desktop/Programs/structural-mind/Structural Mind/vault/`
 | torsion | s ≤ min(ph/8, 300); closed stirrups | §9.7.6.3.3; §9.7.6.3.1 | 160 | 409.7.6.3 |
 | combine | torsion steel added to flexure/shear steel | §9.5.4.3 | 147 | 409.5.4.3 |
 | combine | Al around perimeter ≤ 300 mm, corner bars, db ≥ 0.042s, ≥ 10 | §9.7.5.1–.2 | 158 | 409.7.5 |
-| seismic | geometry ln ≥ 4d, bw, projection | §18.6.2.1 (+ errata) | 327 | 418.6.2 (4-113) |
+| seismic | geometry ln ≥ 4d, bw ≥ min(0.3h, 250) (NSCP wording — see edition positions), projection | §18.6.2.1 (+ errata) | 327 | 418.6.2.1 (4-113) |
 | seismic | 2 continuous bars, As,min, ρ ≤ 0.025 / 0.02 | §18.6.3.1 | 328 | 418.6.3.1 (4-113) |
 | seismic | ½ and ¼ moment-strength rules | §18.6.3.2 | 328 | 418.6.3.2 (4-113) |
 | seismic | lap-splice locations | §18.6.3.3 | 328 | 418.6.3.3 (4-113) |

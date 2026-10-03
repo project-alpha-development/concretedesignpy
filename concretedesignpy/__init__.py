@@ -24,3 +24,6 @@ from .calculators.column_jacket_design import (
     validate_jacket_request,
 )
 from .calculators.column_jacket import JacketedColumn
+
+# Footing jacketing (ACI 562-25 / ACI 318-25M)
+from .calculators.footing_jacket import footing_jacket_check

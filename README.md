@@ -77,6 +77,7 @@ concretedesignpy/
 │   ├── column_flexural.py     # Min flexural strength ratio
 │   ├── column_jacket.py       # RC jacketing engine (mm/MPa/N, vendored)
 │   ├── column_jacket_design.py # Jacketing report: units + advisories boundary
+│   ├── footing_jacket.py      # Footing enlargement (ACI 562-25 / ACI 318-25M)
 │   ├── frp_flexure.py         # ACI 440.2R-17 Ch 10
 │   ├── frp_shear.py           # ACI 440.2R-17 Ch 11
 │   ├── joint_shear.py

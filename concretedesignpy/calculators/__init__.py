@@ -30,6 +30,8 @@ Modules:
     - column_flexural: Minimum flexural strength ratio check
     - column_jacket: RC column concrete jacketing engine (TN-RET-001)
     - column_jacket_design: Jacketing design report, units + advisories boundary
+    - footing_jacket: Enlargement of an existing isolated footing
+      (ACI 562-25 load history, ACI 318-25M strengths)
     - joint_shear: Joint shear verification for special moment frames
     - mander: Mander's confined concrete model
     - development_length: Hook geometry per NSCP 2015 Section 425
@@ -44,7 +46,8 @@ Standards:
     The edition is per module, not per package. beam_moment, beam_shear
     and joint_shear implement NSCP 2015 (= ACI 318M-14) and say so in
     their own docstrings; they are not ACI 318-19. The column_jacket
-    modules are the ones written to ACI 318-19.
+    modules are the ones written to ACI 318-19. footing_jacket is
+    written to ACI 562-25 with ACI 318-25M as the design-basis code.
 """
 
 from concretedesignpy.calculators.beam_moment import calculate_beam_moment
@@ -112,4 +115,7 @@ from concretedesignpy.calculators.column_jacket_design import (
     column_jacket_design,
     build_jacketed_column,
     validate_jacket_request,
+)
+from concretedesignpy.calculators.footing_jacket import (
+    footing_jacket_check,
 )

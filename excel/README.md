@@ -4,7 +4,10 @@
 `concretedesignpy/calculators/footing_jacket.py`: enlargement of an existing
 isolated footing per ACI 562-25 with ACI 318-25M as the design-basis code and
 ASCE 41-17 C8.7 for the existing contact pressure. The formulas are live;
-yellow cells are the inputs and every other cell is locked.
+yellow cells are the inputs and every other cell is locked. Sheet 2,
+"Theory", sets out the equations behind each section as locked pictures with
+the clause and printed page under each; they are typeset for the workbook,
+not copied from the standards.
 `APEC-Footing-Jacket-sample.pdf` is the printout of the sample inputs.
 
 The workbook is generated, not hand-edited. The generator is the `excel/` kit

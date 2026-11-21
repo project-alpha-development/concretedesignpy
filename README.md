@@ -37,18 +37,19 @@ A Python library and web application for reinforced concrete structural design p
 - **Development Length** — Hook geometry for deformed bars and stirrups (Section 425)
 - **Alternative Inertia** — Effective moment of inertia per Section 424.2.3.5
 
+### Masonry (CHB) — NSCP 2015 Ch.7 *(interim subpackage)*
+- **Partition / infill (non-load-bearing)** — Table 204-2 wall weight, Fp per §208.9 (Table 208-13), §710.4 empirical h/t or l/t limit, §709.4.1.2–709.4.1.3 isolation and minimum steel; if the empirical limit fails, a reinforced ASD check picks the bar size and spacing, else the stiffener (RC column) spacing
+- **Freestanding wall / fence** — wind per §207D (Case A body or Case C end zone), seismic per Table 208-13 (fences), unreinforced (empirical) or reinforced stem, footing overturning / sliding / bearing (Table 304-1, FS 1.5)
+- **Reinforced wall, out of plane** — §708.2.4 slender-wall strength design with P-Δ, or §707.2 allowable stress design (stresses halved without special inspection)
+- **Shear wall, in plane** — §708.2.5 axial, flexure (strain compatibility), shear, minimum steel
+- **Existing walls** — f'm from §705.3.5 cut prisms or Table 705-1; knowledge factor κ (ASCE 41-17 §11.2.4) only when its inputs are given
+- Every result lists each check's limit, ratio and pass/fail, and the vault clause notes it rests on. Provisions the code book does not support (unreinforced allowables on the missing p.7-31, Cd, the Table 708-1 Vn cap) are returned as `not_checked` with the reason, never guessed.
+
 ### Web Application
 - Flask-based interactive calculators
 - Plotly charts for all visualizations (M-phi diagrams, P-M interaction, stress-strain curves, section analysis)
 - MathJax-rendered calculation reports with full formula substitution
 - Print-ready output with engineering notation
-
-## Masonry (CHB) — interim subpackage
-
-`concretedesignpy/masonry/` designs and checks CHB partitions, fences, and reinforced walls (out of
-plane / in plane) to NSCP 2015 Ch.7. It imports clause functions from the Mind vault package
-**apec-provisions** (`pip install -e ~/Desktop/Mind/03_Modelling/Python`) and nothing from
-`concretedesignpy.calculators`, so it can move to its own repo later. API: `POST /api/masonry/<calc>`.
 
 ## Installation
 
@@ -59,6 +60,7 @@ pip install -e .
 ### Dependencies
 
 - Python 3.8+
+- **apec-provisions** (masonry only) — the Mind vault clause functions: `pip install -e ~/Desktop/Mind/03_Modelling/Python`. Without it the app still runs; `/api/masonry/*` returns 503.
 - Flask
 - NumPy
 - Gunicorn (production)
@@ -93,9 +95,16 @@ concretedesignpy/
 │   ├── alternative_inertia.py
 │   ├── rebar_layout.py        # Section rebar coordinates
 │   └── diagrams.py            # SVG diagram generators
+├── masonry/              # CHB masonry, NSCP 2015 Ch.7 (self-contained; imports only the vault + clause.py)
+│   ├── partition.py      # Non-load-bearing partitions / infill
+│   ├── fence.py          # Freestanding walls: wind, seismic, stem, footing
+│   ├── wall_oop.py       # Reinforced wall out of plane (SD / ASD), existing-wall mode
+│   ├── wall_inplane.py   # Reinforced shear wall in plane (SD)
+│   └── report.py         # One display equation per check
+├── clause.py             # @clause tags linking functions to vault clause notes
 ├── webapp/
 │   ├── app.py            # Flask application factory
-│   ├── routes/           # API endpoints (beam, column, section, joint, mander)
+│   ├── routes/           # API endpoints (beam, column, section, joint, mander, masonry)
 │   ├── templates/        # Jinja2 HTML templates with MathJax
 │   └── static/           # CSS & JavaScript
 ├── tests/                # pytest suite
@@ -109,11 +118,15 @@ concretedesignpy/
 
 See the [Wiki — API Reference](https://github.com/albertp16/concretedesignpy/wiki/API-Reference) for the full list of 17 POST endpoints.
 
+Masonry: `POST /api/masonry/partition`, `/api/masonry/fence`, `/api/masonry/wall-oop`, `/api/masonry/wall-inplane` (JSON in, result with `checks`, `basis` and `report` out). Page: `/calculator/masonry`.
+
 ## Testing
 
 ```bash
 python -m pytest
 ```
+
+Masonry tests (`tests/test_masonry_*.py`) cover the engine, the routes, worked partition and fence examples with the hand calculation written in each docstring, and an import-seam test that fails if `concretedesignpy/masonry` imports from `concretedesignpy.calculators`. `tests/conftest.py` finds the vault package at `~/Desktop/Mind/03_Modelling/Python` (or `$APEC_PROVISIONS`) if it is not installed.
 
 The suite covers the column jacketing modules. It distinguishes two kinds of
 test, and the distinction matters when you add one:
@@ -124,6 +137,22 @@ test, and the distinction matters when you add one:
   where recomputation would mean reimplementing a layer integration. They would
   happily pin a bug, so they are labelled. If one fails, work out which
   behaviour changed before updating the number.
+
+## Library Usage — Masonry Fence
+
+```python
+from concretedesignpy.masonry import fence, build_report
+
+r = fence(dict(
+    H_mm=2400, L_m=30, t_nom_mm=200, t_spec_mm=190, unit_density_kN_m3=16.5,
+    grout="solid", plastered_faces=2, fm_MPa=10, fy_MPa=275, mortar="S",
+    special_inspection=True, zone=4, Ca=0.44,               # required: no defaults
+    V_kph=258.4, exposure="B", Kzt=1.0, wind_zone="body", method="SD",
+    bar_db_mm=12, bar_s_mm=400,
+    footing=dict(B_mm=1200, D_mm=300, Df_mm=900, soil_class=4, gamma_c_kN_m3=23.6)))
+print(r["ok"], r["governing_ratio"])        # True 0.787
+print(build_report(r)["status"])
+```
 
 ## Library Usage — Column Jacketing
 

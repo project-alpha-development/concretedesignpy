@@ -4,7 +4,8 @@
     def compute_concrete_shear_strength(...): ...
 
 Metadata only: the function is returned unchanged, with the note ids in ``__clauses__``.
-``sync_clauses.py --check`` compares the tags with ``clauses/manifest.json``. No dependencies.
+The Mind vault's ``qaqc_solver.py concretedesignpy`` compares the tags with the vault manifest
+(``03_Modelling/Solvers/manifests/concretedesignpy.json``). No dependencies.
 """
 
 

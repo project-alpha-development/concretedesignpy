@@ -36,7 +36,10 @@ four corner bars.
 
 import math
 
+from concretedesignpy.clause import clause
 
+
+@clause("NSCP2015-422.5.5.1", "NSCP2015-422.5.6")
 def compute_concrete_shear_strength(
     fc, b, d, lamda=1.0, vc_type="simple",
     vu=None, mu=None, nu=None, rho_w=None,
@@ -125,6 +128,7 @@ def compute_concrete_shear_strength(
     return {"vc": round(vc, 2), "vc_kn": round(vc / 1000, 2), "type": vc_type}
 
 
+@clause("NSCP2015-422.5.10")
 def compute_steel_shear_strength(av, fyt, d, s):
     """
     Compute steel shear reinforcement strength Vs = Av * fyt * d / s.
@@ -151,6 +155,7 @@ def compute_steel_shear_strength(av, fyt, d, s):
     return {"vs": round(vs, 2), "vs_kn": round(vs / 1000, 2)}
 
 
+@clause("NSCP2015-422.5.1", "NSCP2015-409.6.3", "NSCP2015-409.7.6")
 def compute_shear_spacing(fc, b, d, fyt, vu_required, phi, av,
                           lamda=1.0, vc_type="simple", **kwargs):
     """
@@ -234,6 +239,7 @@ def compute_shear_spacing(fc, b, d, fyt, vu_required, phi, av,
     return result
 
 
+@clause("NSCP2015-422.5.6", "NSCP2015-409.7.6", "NSCP2015-422.7.4", "NSCP2015-422.7.6", "NSCP2015-422.7.7", "NSCP2015-409.6.4")
 def shear_torsion_design(fc, fyv, fy, phi, bw, h, cc, c, d,
                          vu, tu, nu, s_chosen, n_legs, db_stirrup, db_long):
     """

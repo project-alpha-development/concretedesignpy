@@ -37,6 +37,7 @@ Non-convergence raises ValueError rather than reporting a zero capacity.
 
 import math
 
+from concretedesignpy.clause import clause
 from concretedesignpy.calculators.moment_curvature import (
     polygon_area,
     polygon_centroid,
@@ -62,6 +63,7 @@ def _polygon_strip_area_and_centroid(vertices, y_lo, y_hi, n_strips=80):
     return a_total, ay_total / a_total
 
 
+@clause("NSCP2015-422.2.2.4")
 def _calculate_beta_one(fc):
     """Whitney stress block factor per NSCP 2015 Section 422.2.2.4.3."""
     if fc <= 17:
@@ -74,6 +76,7 @@ def _calculate_beta_one(fc):
         return 0.65
 
 
+@clause("NSCP2015-421.2")
 def _strength_reduction_factor(epsilon_t, epsilon_ty):
     """Strength reduction factor (phi) based on tensile strain."""
     if epsilon_t >= 0.005:
@@ -85,6 +88,7 @@ def _strength_reduction_factor(epsilon_t, epsilon_ty):
         return phi, "transition"
 
 
+@clause("NSCP2015-422.2.2.4")
 def calculate_beam_moment(
     rebar_list, fc, fy, b, h, es=200000.0,
     section_vertices=None,

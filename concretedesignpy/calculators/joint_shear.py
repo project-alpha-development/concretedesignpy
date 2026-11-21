@@ -23,6 +23,8 @@ and the column-to-beam flexural strength ratio.
 
 import math
 
+from concretedesignpy.clause import clause
+
 # NSCP 2015 Table 418.8.4.1 -- nominal joint shear strength Vn for special
 # moment frames, in SI. Three rows, keyed on how many joint faces are
 # confined by framing members.
@@ -58,6 +60,7 @@ def _tension_force(as_bar, n_bars, fy, factor=1.25):
     return factor * n_bars * as_bar * fy / 1000.0
 
 
+@clause("NSCP2015-418.8", "NSCP2015-421.2.4")
 def joint_shear_check(
     ve, as1, n_bars1, as2, n_bars2, fy, fc,
     beam_width, joint_depth, *, column_width,

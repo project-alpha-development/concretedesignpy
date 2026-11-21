@@ -1,6 +1,26 @@
 # Changelog - concretedesignpy
 
-## Unreleased | October 2, 2026
+## Unreleased | November 21, 2026 — masonry (CHB), branch feature/masonry
+
+### Added
+- **`concretedesignpy/masonry/` — NSCP 2015 Ch.7 masonry, interim home.** Calculators `partition`
+  (Table 204-2 weight, §208.9 Fp, §710.4 empirical limit, §709.4.1.3 minimum steel, reinforced ASD
+  fallback picking bar/spacing, stiffener spacing), `fence` (§207D wind Case A body / Case C end, §208.9
+  fences row, unreinforced vs reinforced stem, footing overturning/sliding/bearing with Table 304-1),
+  `wall_out_of_plane` (§708.2.4 SD slender wall with P-Δ, or §707.2 ASD) and `wall_in_plane` (§708.2.5,
+  Vn = Vs). Existing-wall mode: f'm from §705.3.5 cut prisms or Table 705-1, κ from ASCE 41-17 §11.2.4
+  only when its inputs are given (analogy). Each result lists every check's limit, ratio and ok, and the
+  vault note ids it rests on.
+- Clause functions come only from the Mind vault (`nscp2015.masonry`, `asce41_17.masonry`); the subpackage
+  imports nothing from `concretedesignpy.calculators` (`tests/test_masonry_seam.py`).
+- `/api/masonry/<partition|fence|wall-oop|wall-inplane>` blueprint (imports the engine per request, so
+  the app still boots without apec-provisions → 503), page `/calculator/masonry` with MathJax report,
+  nav category "Masonry". `tests/conftest.py` finds the vault package for tests.
+- Not computable from the hub, reported `not_checked`: unreinforced CHB stresses (NSCP p.7-31 missing
+  from the scan), masonry shear Vm (Table 708-2 Cd not printed), Table 708-1 Vn cap, cantilever deflection
+  limit, in-plane boundary elements.
+
+## October 2, 2026
 
 ### Fixed
 - **`skills/rc-design/` -- SMF beam width check `smf_bw` used the larger of

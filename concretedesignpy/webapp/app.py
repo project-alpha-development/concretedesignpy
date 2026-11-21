@@ -21,6 +21,7 @@ from concretedesignpy.webapp.routes import (
     joint_bp,
     mander_bp,
     section_bp,
+    masonry_bp,
 )
 
 
@@ -40,6 +41,7 @@ def create_app():
     app.register_blueprint(joint_bp, url_prefix="/api/joint")
     app.register_blueprint(mander_bp, url_prefix="/api/mander")
     app.register_blueprint(section_bp, url_prefix="/api/section")
+    app.register_blueprint(masonry_bp, url_prefix="/api/masonry")
 
     # The navbar badge used to be the literal string "v0.7 | NSCP 2015 /
     # ACI 318-19" in base.html. It went stale, and it was wrong on both

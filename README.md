@@ -43,6 +43,13 @@ A Python library and web application for reinforced concrete structural design p
 - MathJax-rendered calculation reports with full formula substitution
 - Print-ready output with engineering notation
 
+## Masonry (CHB) — interim subpackage
+
+`concretedesignpy/masonry/` designs and checks CHB partitions, fences, and reinforced walls (out of
+plane / in plane) to NSCP 2015 Ch.7. It imports clause functions from the Mind vault package
+**apec-provisions** (`pip install -e ~/Desktop/Mind/03_Modelling/Python`) and nothing from
+`concretedesignpy.calculators`, so it can move to its own repo later. API: `POST /api/masonry/<calc>`.
+
 ## Installation
 
 ```bash

@@ -110,6 +110,10 @@ was **deleted** 2026-08-15.
 
 ---
 
+### A.5 Masonry — `concretedesignpy.masonry` (interim)
+Clause register lives in the Mind vault manifest (`03_Modelling/Solvers/manifests/concretedesignpy.json`,
+entries with `register: masonry …`); notes NSCP2015-701 … -710, -204-T204-2, -103-T103-1, ASCE41-17-11.2.
+
 ## Part B — Rectification record
 
 Against `Software/14 - concretedesignpy Review — Beam Flexure, Shear, Torsion & Joint Shear`,

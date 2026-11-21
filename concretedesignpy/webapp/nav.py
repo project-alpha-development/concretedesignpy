@@ -14,7 +14,7 @@ Icons are Lucide icon names (https://lucide.dev, ISC license).
 """
 
 # Category display order for the sidebar and the landing page.
-CATEGORIES = ["Beam", "Column", "Retrofit", "Joint", "Analysis",
+CATEGORIES = ["Beam", "Column", "Retrofit", "Joint", "Masonry", "Analysis",
               "Material", "Detailing"]
 
 CALCULATORS = [
@@ -54,6 +54,11 @@ CALCULATORS = [
      "short": "Joint Shear",
      "desc": "Joint shear verification for special moment frames",
      "ref": "NSCP 2015 §418.8.4", "category": "Joint", "icon": "git-merge"},
+    {"id": "masonry", "name": "Masonry (CHB) Walls",
+     "short": "CHB Walls",
+     "desc": "Partitions, fences, reinforced walls out of plane and in plane "
+             "(interim home; vault clause functions)",
+     "ref": "NSCP 2015 Ch.7", "category": "Masonry", "icon": "box"},
     {"id": "mander", "name": "Mander Confined Concrete",
      "short": "Mander Model",
      "desc": "Confined concrete strength and strain (Mander 1988)",

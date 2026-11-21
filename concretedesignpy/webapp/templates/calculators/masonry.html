@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% block title %}Masonry (CHB) Walls - ConcreteDesignPy{% endblock %}
+
+{% block content %}
+<div class="calc-page">
+    <h1>Masonry (CHB) Walls</h1>
+    <p class="ref">NSCP 2015 Chapter 7 &mdash; clause functions from the Mind vault (draft notes). Interim home inside concretedesignpy.</p>
+
+    <div class="solver">
+        <aside class="solver-params">
+            <div class="solver-params-head">
+                {{ icon('sliders', 14) }}
+                <span class="solver-params-title">Parametrization</span>
+            </div>
+            <div class="solver-params-body">
+                <form id="calc-form" class="calc-form">
+                    <div class="form-section">
+                        <h3>Calculator</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Element</label>
+                                <select name="calc" id="calc-select">
+                                    <option value="partition">CHB partition / infill (non-load-bearing)</option>
+                                    <option value="fence" selected>Freestanding wall / fence</option>
+                                    <option value="wall-oop">Reinforced wall, out of plane</option>
+                                    <option value="wall-inplane">Reinforced shear wall, in plane</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Masonry &amp; site (required, no defaults in the engine)</h3>
+                        <div class="form-row">
+                            <div class="form-group"><label>f'm (MPa)</label><input type="number" name="fm_MPa" value="10" step="any" required></div>
+                            <div class="form-group"><label>fy (MPa)</label><input type="number" name="fy_MPa" value="275" step="any" required></div>
+                            <div class="form-group"><label>Mortar</label><select name="mortar"><option>M</option><option selected>S</option><option>N</option><option>O</option></select></div>
+                            <div class="form-group"><label>Special inspection</label><select name="special_inspection" data-type="bool"><option value="true" selected>Yes</option><option value="false">No (ASD stresses halved)</option></select></div>
+                            <div class="form-group"><label>Seismic zone</label><select name="zone" data-type="int"><option value="4" selected>4</option><option value="2">2</option></select></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>t nominal (mm)</label><input type="number" name="t_nom_mm" value="200" required></div>
+                            <div class="form-group"><label>t specified (mm)</label><input type="number" name="t_spec_mm" value="190" step="any" required></div>
+                            <div class="form-group"><label>Face shell (mm, partial grout)</label><input type="number" name="face_shell_mm" value="32" step="any"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section" data-for="partition fence">
+                        <h3>CHB unit (Table 204-2)</h3>
+                        <div class="form-row">
+                            <div class="form-group"><label>Unit density (kN/m³)</label><select name="unit_density_kN_m3" data-type="float"><option>16.5</option><option>19.6</option><option>21.2</option></select></div>
+                            <div class="form-group"><label>Plastered faces</label><select name="plastered_faces" data-type="int"><option>0</option><option>1</option><option selected>2</option></select></div>
+                            <div class="form-group"><label>Ca</label><input type="number" name="Ca" value="0.44" step="any"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section" data-for="partition">
+                        <h3>Partition</h3>
+                        <div class="form-row">
+                            <div class="form-group"><label>Height h (mm)</label><input type="number" name="p_h_mm" value="3000"></div>
+                            <div class="form-group"><label>Stiffener spacing l (mm, blank = none)</label><input type="number" name="l_mm" value=""></div>
+                            <div class="form-group"><label>Grout spacing</label><select name="grout_spacing" data-type="grout"><option value="none">none</option><option>800</option><option>600</option><option>400</option><option value="full">full</option></select></div>
+                            <div class="form-group"><label>Location</label><select name="location"><option>interior</option><option>exterior</option></select></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Ip</label><input type="number" name="p_Ip" value="1.0" step="any"></div>
+                            <div class="form-group"><label>hx (m)</label><input type="number" name="hx_m" value="20" step="any"></div>
+                            <div class="form-group"><label>hr (m)</label><input type="number" name="hr_m" value="40" step="any"></div>
+                            <div class="form-group"><label>Wind (kPa, exterior)</label><input type="number" name="p_wind_kPa" value="0" step="any"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section" data-for="fence">
+                        <h3>Fence</h3>
+                        <div class="form-row">
+                            <div class="form-group"><label>H above grade (mm)</label><input type="number" name="H_mm" value="2400"></div>
+                            <div class="form-group"><label>Length L (m)</label><input type="number" name="L_m" value="30" step="any"></div>
+                            <div class="form-group"><label>Grout</label><select name="f_grout"><option value="solid">solid</option><option value="partial">partial</option><option value="ungrouted">ungrouted (unreinforced)</option></select></div>
+                            <div class="form-group"><label>Method</label><select name="f_method"><option>SD</option><option>ASD</option></select></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>V (km/h)</label><input type="number" name="V_kph" value="258.4" step="any"></div>
+                            <div class="form-group"><label>Exposure</label><select name="exposure"><option>B</option><option>C</option><option>D</option></select></div>
+                            <div class="form-group"><label>Kzt</label><input type="number" name="Kzt" value="1.0" step="any"></div>
+                            <div class="form-group"><label>Wind zone</label><select name="wind_zone"><option value="body">body (Case A/B)</option><option value="end">end (Case C)</option></select></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Bar db (mm, blank = unreinforced)</label><input type="number" name="f_bar_db_mm" value="12"></div>
+                            <div class="form-group"><label>Bar spacing (mm)</label><input type="number" name="f_bar_s_mm" value="400"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Footing B (mm)</label><input type="number" name="ftg_B_mm" value="1200"></div>
+                            <div class="form-group"><label>Footing D (mm)</label><input type="number" name="ftg_D_mm" value="300"></div>
+                            <div class="form-group"><label>Depth Df (mm)</label><input type="number" name="ftg_Df_mm" value="900"></div>
+                            <div class="form-group"><label>Soil class (Table 304-1)</label><select name="ftg_soil_class" data-type="int"><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option></select></div>
+                            <div class="form-group"><label>γc (kN/m³)</label><input type="number" name="ftg_gamma_c_kN_m3" value="23.6" step="any"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section" data-for="wall-oop">
+                        <h3>Wall out of plane</h3>
+                        <div class="form-row">
+                            <div class="form-group"><label>Method</label><select name="w_method"><option>SD</option><option>ASD</option></select></div>
+                            <div class="form-group"><label>Support</label><select name="support"><option value="simple">simple top &amp; bottom</option><option value="cantilever">cantilever</option></select></div>
+                            <div class="form-group"><label>Height h (mm)</label><input type="number" name="w_h_mm" value="3000"></div>
+                            <div class="form-group"><label>Grout</label><select name="w_grout"><option value="solid">solid</option><option value="partial">partial</option></select></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Wall weight (kPa)</label><input type="number" name="wall_kPa" value="3.59" step="any"></div>
+                            <div class="form-group"><label>Wind W (kPa)</label><input type="number" name="w_wind_kPa" value="1.0" step="any"></div>
+                            <div class="form-group"><label>Seismic E (kPa)</label><input type="number" name="seismic_kPa" value="0" step="any"></div>
+                            <div class="form-group"><label>Ip</label><input type="number" name="w_Ip" value="1.0" step="any"></div>
+                            <div class="form-group"><label>P top (kN/m, dead)</label><input type="number" name="P_top_kN_per_m" value="0" step="any"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Bar db (mm)</label><input type="number" name="w_bar_db_mm" value="12"></div>
+                            <div class="form-group"><label>Bar spacing (mm)</label><input type="number" name="w_bar_s_mm" value="600"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-section" data-for="wall-inplane">
+                        <h3>Shear wall in plane (SD)</h3>
+                        <div class="form-row">
+                            <div class="form-group"><label>Lw (mm)</label><input type="number" name="Lw_mm" value="4000"></div>
+                            <div class="form-group"><label>h (mm)</label><input type="number" name="i_h_mm" value="3000"></div>
+                            <div class="form-group"><label>Grout</label><select name="i_grout"><option value="solid">solid</option><option value="partial">partial</option></select></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Pu (kN)</label><input type="number" name="Pu_kN" value="200" step="any"></div>
+                            <div class="form-group"><label>Mu (kN·m)</label><input type="number" name="Mu_kNm" value="600" step="any"></div>
+                            <div class="form-group"><label>Vu (kN)</label><input type="number" name="Vu_kN" value="180" step="any"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Vertical db / s (mm)</label><input type="number" name="vert_db_mm" value="16"><input type="number" name="vert_s_mm" value="600"></div>
+                            <div class="form-group"><label>Horizontal db / s (mm)</label><input type="number" name="horiz_db_mm" value="12"><input type="number" name="horiz_s_mm" value="400"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="solver-runbar">
+                <button class="btn-run" type="submit" form="calc-form">{{ icon('zap', 15) }} Update</button>
+                <label class="auto-toggle"><input type="checkbox" id="solver-auto"> Auto</label>
+                <span class="run-status" data-state="idle">Idle</span>
+            </div>
+            <div class="run-hint">Ctrl/Cmd + Enter runs from anywhere on the page</div>
+        </aside>
+
+        <section class="solver-views">
+            <div class="solver-empty" id="solver-empty">
+                {{ icon('zap', 34) }}
+                <h3>No results yet</h3>
+                <p>Pick the element, set the parameters, then press <b>Update</b>.</p>
+            </div>
+            <div data-view="Results">
+                <div id="results" class="results-panel" style="display:none;">
+                    <h2>Results</h2>
+                    <div id="results-content"></div>
+                </div>
+            </div>
+            <div data-view="Report">
+                <div id="results-report" class="report-panel"></div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+(function() {
+    var form = document.getElementById('calc-form');
+    var sel = document.getElementById('calc-select');
+    function showSections() {
+        form.querySelectorAll('[data-for]').forEach(function(el) {
+            el.style.display = el.getAttribute('data-for').split(' ').indexOf(sel.value) >= 0 ? '' : 'none';
+        });
+    }
+    sel.addEventListener('change', showSections);
+    showSections();
+
+    function val(name) {
+        var el = form.elements[name];
+        if (!el) return null;
+        var v = el.value;
+        var t = el.getAttribute('data-type');
+        if (v === '') return null;
+        if (t === 'bool') return v === 'true';
+        if (t === 'int') return parseInt(v);
+        if (t === 'float') return parseFloat(v);
+        if (t === 'grout') return (v === 'none' || v === 'full') ? v : parseInt(v);
+        if (el.tagName === 'SELECT') return v;
+        return parseFloat(v);
+    }
+
+    function payload(calc) {
+        var p = {fm_MPa: val('fm_MPa'), fy_MPa: val('fy_MPa'), mortar: val('mortar'),
+                 special_inspection: val('special_inspection'), zone: val('zone'),
+                 t_nom_mm: val('t_nom_mm'), t_spec_mm: val('t_spec_mm'), face_shell_mm: val('face_shell_mm')};
+        if (calc === 'partition') {
+            Object.assign(p, {h_mm: val('p_h_mm'), l_mm: val('l_mm'), unit_density_kN_m3: val('unit_density_kN_m3'),
+                grout_spacing: val('grout_spacing'), plastered_faces: val('plastered_faces'), location: val('location'),
+                Ca: val('Ca'), Ip: val('p_Ip'), hx_m: val('hx_m'), hr_m: val('hr_m'), wind_kPa: val('p_wind_kPa')});
+        } else if (calc === 'fence') {
+            Object.assign(p, {H_mm: val('H_mm'), L_m: val('L_m'), unit_density_kN_m3: val('unit_density_kN_m3'),
+                grout: val('f_grout'), plastered_faces: val('plastered_faces'), Ca: val('Ca'), V_kph: val('V_kph'),
+                exposure: val('exposure'), Kzt: val('Kzt'), wind_zone: val('wind_zone'), method: val('f_method'),
+                bar_db_mm: val('f_bar_db_mm'), bar_s_mm: val('f_bar_s_mm'),
+                footing: {B_mm: val('ftg_B_mm'), D_mm: val('ftg_D_mm'), Df_mm: val('ftg_Df_mm'),
+                          soil_class: val('ftg_soil_class'), gamma_c_kN_m3: val('ftg_gamma_c_kN_m3')}});
+        } else if (calc === 'wall-oop') {
+            Object.assign(p, {method: val('w_method'), support: val('support'), h_mm: val('w_h_mm'), grout: val('w_grout'),
+                wall_kPa: val('wall_kPa'), wind_kPa: val('w_wind_kPa'), seismic_kPa: val('seismic_kPa'),
+                Ca: val('Ca'), Ip: val('w_Ip'), P_top_kN_per_m: val('P_top_kN_per_m'),
+                bar_db_mm: val('w_bar_db_mm'), bar_s_mm: val('w_bar_s_mm')});
+        } else {
+            Object.assign(p, {Lw_mm: val('Lw_mm'), h_mm: val('i_h_mm'), grout: val('i_grout'), Pu_kN: val('Pu_kN'),
+                Mu_kNm: val('Mu_kNm'), Vu_kN: val('Vu_kN'), vert_db_mm: val('vert_db_mm'), vert_s_mm: val('vert_s_mm'),
+                horiz_db_mm: val('horiz_db_mm'), horiz_s_mm: val('horiz_s_mm')});
+        }
+        return p;
+    }
+
+    function fmt(x) { return (x === null || x === undefined) ? '—' : (typeof x === 'number' ? (Math.abs(x) >= 100 ? x.toFixed(1) : x.toPrecision(4)) : escapeHtml(String(x))); }
+
+    function render(r) {
+        var h = '<p><b>Status:</b> ' + escapeHtml(r.report.status) + '</p>';
+        if (r.design) {
+            h += '<h3>Design</h3><table class="result-table"><tr><th>Item</th><th>Result</th><th>Basis</th></tr>';
+            h += '<tr><td>Vertical bars</td><td>' + r.design.vertical.bar_db_mm + ' mm @ ' + r.design.vertical.spacing_mm + ' mm</td><td>' + escapeHtml(r.design.vertical.basis) + '</td></tr>';
+            h += '<tr><td>Horizontal bars</td><td>' + r.design.horizontal.bar_db_mm + ' mm @ ' + r.design.horizontal.spacing_mm + ' mm, or ' + escapeHtml(r.design.horizontal.or_joint_reinforcement) + '</td><td>' + escapeHtml(r.design.horizontal.basis) + '</td></tr>';
+            h += '<tr><td>Stiffener (RC column) spacing</td><td>' + (r.design.stiffener_spacing_mm ? '≤ ' + r.design.stiffener_spacing_mm + ' mm' : 'not required') + '</td><td>§710.4 Table 710-4</td></tr></table>';
+        }
+        h += '<h3>Checks</h3><table class="result-table"><tr><th>Check</th><th>Demand</th><th>Limit</th><th>Ratio</th><th>OK</th><th>Clause</th></tr>';
+        r.checks.forEach(function(c) {
+            var ok = c.ok === null ? '<span title="' + escapeHtml(c.reason || '') + '">not checked</span>' : (c.ok ? '✔' : '✘');
+            h += '<tr><td>' + escapeHtml(c.label) + '</td><td>' + fmt(c.demand) + '</td><td>' + fmt(c.limit) + '</td><td>' + fmt(c.ratio) + '</td><td>' + ok + '</td><td>' + escapeHtml(c.clause) + '</td></tr>';
+        });
+        h += '</table>';
+        if (r.notes && r.notes.length) h += '<h3>Notes</h3><ul>' + r.notes.map(function(n) { return '<li>' + escapeHtml(n) + '</li>'; }).join('') + '</ul>';
+        h += '<p class="ref"><b>Basis (vault notes):</b> ' + r.basis.map(escapeHtml).join(', ') + '</p>';
+        return h;
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var calc = sel.value;
+        submitCalc('/api/masonry/' + calc, payload(calc), function(r) {
+            document.getElementById('results-content').innerHTML = render(r);
+            var rep = r.report;
+            var tex = '<h3>' + escapeHtml(rep.title) + '</h3><div class="mathjax-report">';
+            rep.lines.forEach(function(l) {
+                tex += '<p><b>' + escapeHtml(l.label) + '</b> <span class="ref">[' + escapeHtml(l.clause) + ']</span> — ' + escapeHtml(l.status) + '</p>';
+                if (l.tex) tex += '<p>\\[ ' + l.tex + ' \\]</p>';
+            });
+            tex += '<p><b>Overall:</b> ' + escapeHtml(rep.status) + '</p></div>';
+            document.getElementById('results-report').innerHTML = tex;
+            if (window.MathJax && MathJax.typeset) MathJax.typeset();
+        });
+    });
+})();
+</script>
+{% endblock %}
